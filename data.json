@@ -1,0 +1,35 @@
+{
+    "users_db": {},
+    "feedbacks": [
+        {
+            "user": "tarangini",
+            "message": "good",
+            "stars": 3,
+            "date": "2026-04-21"
+        },
+        {
+            "user": "alice",
+            "message": "The bot response time is amazing, but can it give PDF brochures?",
+            "stars": 5,
+            "date": "2026-04-10"
+        },
+        {
+            "user": "bob",
+            "message": "Add more details about hostel facilities please.",
+            "stars": 4,
+            "date": "2026-04-11"
+        }
+    ],
+    "unanswered_questions": [
+        {
+            "user": "charlie",
+            "query": "Who is the current Dean of Computer Science?",
+            "date": "2026-04-12"
+        },
+        {
+            "user": "diana",
+            "query": "What are the rules for international student visa?",
+            "date": "2026-04-11"
+        }
+    ]
+}

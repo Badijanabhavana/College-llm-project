@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unanswered Questions | JNTU-GV</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #3B82F6;
+            --primary-dark: #60A5FA;
+            --sidebar-bg: linear-gradient(180deg, #0F172A 0%, #1E3A8A 100%);
+            --sidebar-width: 260px;
+            --bg-color: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); display: flex; }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            height: 100vh;
+            position: fixed;
+            left: 0; top: 0;
+            color: white;
+            display: flex; flex-direction: column;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-header {
+            padding: 1.5rem; display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-box { display: flex; align-items: center; gap: 12px; }
+        .logo-icon { font-size: 1.8rem; }
+        .logo-text { font-weight: 700; font-size: 1.25rem; }
+
+        .sidebar-menu { padding: 1rem 0; flex-grow: 1; overflow-y: auto; }
+        .menu-item {
+            display: flex; align-items: center; padding: 0.8rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8); text-decoration: none;
+            transition: var(--transition); gap: 15px;
+        }
+        .menu-item:hover { background: rgba(255, 255, 255, 0.1); color: white; padding-left: 2rem; }
+        .menu-item.active { background: rgba(255, 255, 255, 0.15); color: white; border-left: 4px solid white; }
+        .menu-icon { font-size: 1.4rem; min-width: 24px; text-align: center; }
+        .menu-text { font-weight: 500; white-space: nowrap; }
+
+        .main-container {
+            margin-left: var(--sidebar-width);
+            padding: 2rem 5%;
+            width: calc(100% - var(--sidebar-width));
+            min-height: 100vh;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .page-title { font-size: 2rem; font-weight: 700; color: #1e3a8a; }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .question-card {
+            background: white; border-radius: 12px;
+            padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 4px solid #EF4444;
+            transition: all 0.3s ease;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .q-header { display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.85rem; color: #64748b;}
+        .q-user { font-weight: 600; color: #1e3a8a; }
+        .q-text { font-size: 1.1rem; color: #334155; font-weight: 500; margin-bottom: 1.5rem; line-height: 1.4;}
+        
+        .btn-resolve {
+            background: #EFF6FF; color: #2563EB; border: 1px solid #BFDBFE;
+            padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-resolve:hover { background: #3B82F6; color: white; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-box">
+                <span class="logo-icon">🤖</span>
+                <span class="logo-text">Enquiry Bot</span>
+            </div>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="/" class="menu-item"><span class="menu-icon">🏠</span><span class="menu-text">Home</span></a>
+            <a href="/#chat" class="menu-item"><span class="menu-icon">🤖</span><span class="menu-text">Ask Bot</span></a>
+            <a href="/feedback" class="menu-item"><span class="menu-icon">✍️</span><span class="menu-text">Give Feedback</span></a>
+            <a href="/bot-users" class="menu-item"><span class="menu-icon">👥</span><span class="menu-text">Bot Users</span></a>
+            <a href="/unanswered" class="menu-item active"><span class="menu-icon">❓</span><span class="menu-text">Unanswered Questions</span></a>
+            <a href="/records" class="menu-item"><span class="menu-icon">📋</span><span class="menu-text">Feedback Record</span></a>
+            <a href="/chat_history" class="menu-item"><span class="menu-icon">💬</span><span class="menu-text">Chat History</span></a>
+            <a href="/logout" class="menu-item" style="margin-top: 2rem;"><span class="menu-icon">🚪</span><span class="menu-text">Logout</span></a>
+        </nav>
+    </aside>
+
+    <main class="main-container">
+        <div class="page-header">
+            <h1 class="page-title">❓ Unanswered Questions</h1>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">Review and resolve the queries that the chatbot failed to understand or respond to.</p>
+        </div>
+
+        <div class="card-grid" id="unanswered-grid">
+            <div style="grid-column: 1/-1; text-align: center; padding: 3rem; background: white; border-radius: 12px;">
+                <p style="color: #64748b; font-weight: 500;">Loading questions...</p>
+            </div>
+        </div>
+    </main>
+    <script>
+        async function fetchUnanswered() {
+            try {
+                const res = await fetch('/api/unanswered');
+                const questions = await res.json();
+                const grid = document.getElementById('unanswered-grid');
+                
+                if(questions.length === 0) {
+                    grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; background: white; border-radius: 12px;"><span style="font-size: 2rem;">🎉</span><p style="color: #64748b; margin-top: 1rem; font-weight: 500;">Great job! The bot has successfully answered all questions.</p></div>';
+                    return;
+                }
+                
+                let html = '';
+                questions.forEach(q => {
+                    html += `<div class="question-card">
+                        <div class="q-header">
+                            <span class="q-user">@${q.username}</span>
+                            <span>${q.timestamp}</span>
+                        </div>
+                        <div class="q-text">"${q.query}"</div>
+                        <button class="btn-resolve" onclick="alert('In a real system, you would add an intent for this query.')">Resolve Query</button>
+                    </div>`;
+                });
+                grid.innerHTML = html;
+            } catch (e) {
+                console.error("Error fetching unanswered questions:", e);
+            }
+        }
+        
+        fetchUnanswered();
+        setInterval(fetchUnanswered, 5000);
+    </script>
+</body>
+</html>
